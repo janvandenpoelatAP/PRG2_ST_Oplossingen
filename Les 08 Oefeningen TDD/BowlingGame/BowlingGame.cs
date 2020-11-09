@@ -17,39 +17,50 @@ namespace BowlingGameScore
                 int rollIndex = 0;
                 for (int frame = 0; frame < 10; frame++) // loop over het aantal worpen
                 {
-                    if (IsSpare(rollIndex)) // Spare
+                    if (IsStrike(rollIndex)) // Strike
+                    {
+                        score += GetStrikeScore(rollIndex);
+                        rollIndex++;
+                    }
+                    else if (IsSpare(rollIndex)) // Spare
                     {
                         score += GetSpareScore(rollIndex);
+                        rollIndex += 2;
                     }
                     else
                     {
                         score += GetStandardScore(rollIndex);
+                        rollIndex += 2;
                     }
-                    rollIndex += 2;
                 }
 
                 return score;
             }
         }
 
-        private int GetStandardScore(int rollIndex)
+       public void Roll(int pinsThisRoll)
         {
-            return pins[rollIndex] + pins[rollIndex + 1];
+            pins[currentRoll++] = pinsThisRoll;
         }
-
-        private int GetSpareScore(int rollIndex)
+        private bool IsStrike(int rollIndex)
         {
-            return pins[rollIndex] + pins[rollIndex + 1] + pins[rollIndex + 2];
+            return pins[rollIndex]  == 10;
         }
-
         private bool IsSpare(int rollIndex)
         {
             return pins[rollIndex] + pins[rollIndex + 1] == 10;
         }
-
-        public void Roll (int pinsThisRoll)
+        private int GetStrikeScore(int rollIndex)
         {
-            pins[currentRoll++] = pinsThisRoll;
+            return pins[rollIndex] + pins[rollIndex + 1] + pins[rollIndex + 2];
+        }
+        private int GetSpareScore(int rollIndex)
+        {
+            return pins[rollIndex] + pins[rollIndex + 1] + pins[rollIndex + 2];
+        }
+        private int GetStandardScore(int rollIndex)
+        {
+            return pins[rollIndex] + pins[rollIndex + 1];
         }
     }
 }
