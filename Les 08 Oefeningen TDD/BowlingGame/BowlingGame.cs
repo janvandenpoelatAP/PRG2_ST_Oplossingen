@@ -10,7 +10,7 @@ namespace BowlingGameScore
 
         public void Roll (int pins)
         {
-           
+            Score += pins;
         }
     }
 }
