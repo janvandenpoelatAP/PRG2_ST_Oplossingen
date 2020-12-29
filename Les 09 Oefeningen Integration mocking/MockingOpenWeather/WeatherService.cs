@@ -15,7 +15,8 @@ namespace OefeningMockingOpenWeather
 
         public string GetCurrentWeatherInAntwerp()
         {
-            var temp = _openWeatherMap.GetCurrentTemperatureInAntwerp();
+            var openWeatherMapApi = _openWeatherMap;
+            var temp = openWeatherMapApi.GetCurrentTemperatureInAntwerp();
             if (temp < 0)
             {
                 return "Brrrr, it's freezing";
